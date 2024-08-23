@@ -1,0 +1,17 @@
+# docker run -p 8080:8080 -e KEYCLOAK_ADMIN=admin -e KEYCLOAK_ADMIN_PASSWORD=admin quay.io/keycloak/keycloak:25.0.4 start-dev
+version: '3'
+services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:25.0.4
+    container_name: keycloak
+    tty: true
+    stdin_open: true
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./data:/opt/keycloak/data # DB情報等が格納されます
+    environment:
+      KEYCLOAK_ADMIN: admin # 管理ユーザーIDを設定
+      KEYCLOAK_ADMIN_PASSWORD: admin # 管理ユーザーのパスワードを設定
+    command:
+      - start-dev # 開発モードで起動
